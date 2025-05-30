@@ -1,0 +1,769 @@
+/*
+ * Complete and Unified style.css for Silicon Ascent Website
+ * Adapted Color Scheme from Nidhikaul.com aesthetic
+ *
+ * Includes:
+ * - Basic Reset & Box-Sizing
+ * - Base Body Styles (fonts, line height, background color)
+ * - Heading Typography
+ * - Global Container for consistent width
+ * - Header Styling (including sticky behavior and shadow on scroll)
+ * - Navigation Styling (desktop and mobile toggle)
+ * - Button Styles with hover animations
+ * - Global Section Spacing
+ * - Fade-in Animation Keyframes and their application (for scroll-triggered effect with JS)
+ * - Section-specific Styling (Hero, Services, About Us, Testimonials, Blog, CTA, Footer)
+ * - Comprehensive Responsive Adjustments using @media queries
+ */
+
+/* Custom Color Variables (inspired by NidhiKaul.com) */
+:root {
+    --color-primary-accent: #b89f81; /* Muted Gold/Blush for accents */
+    --color-primary-dark: #3f3f3f;   /* Darker text/headings */
+    --color-secondary-text: #6b6b6b; /* Softer body text */
+    --color-light-background: #fdfdfd; /* Creamy off-white for main backgrounds */
+    --color-lighter-background: #f5f5f5; /* Slightly darker cream for secondary backgrounds */
+    --color-border: #e0e0e0;         /* Soft border color */
+    --color-white: #fefefe;          /* Soft white for elements on dark backgrounds */
+}
+
+/* ------------------------------------ */
+/* 1. Basic Reset & Box-Sizing */
+/* ------------------------------------ */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ------------------------------------ */
+/* 2. Base Body Styles */
+/* ------------------------------------ */
+body {
+    font-family: 'Open Sans', sans-serif; /* For body text */
+    line-height: 1.7; /* Slightly increased line height for readability */
+    color: var(--color-secondary-text); /* Softer body text color */
+    background-color: var(--color-light-background); /* Creamy off-white background */
+    overflow-x: hidden; /* Prevent horizontal scroll from potential animation overflows */
+    scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+}
+
+/* ------------------------------------ */
+/* 3. Heading Typography */
+/* ------------------------------------ */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif; /* For headings */
+    color: var(--color-primary-dark); /* Darker text for headings */
+    margin-bottom: 0.8em; /* Spacing below headings */
+    line-height: 1.2;
+}
+
+h1 { font-size: 3.2em; } /* Large main heading */
+h2 { font-size: 2.8em; } /* Section titles */
+h3 { font-size: 2em; } /* Sub-headings/Card titles */
+
+/* ------------------------------------ */
+/* 4. Global Container for consistent width */
+/* ------------------------------------ */
+.container {
+    max-width: 1100px; /* Slightly narrower max-width for a more elegant feel */
+    margin: 0 auto; /* Center the container */
+    padding: 0 25px; /* Increased padding on sides for smaller screens */
+}
+
+/* ------------------------------------ */
+/* 5. Header Styling (Sticky & Animated) */
+/* ------------------------------------ */
+.main-header {
+    background-color: var(--color-light-background); /* Creamy off-white background for header */
+    padding: 18px 0; /* Slightly more padding */
+    border-bottom: 1px solid var(--color-border); /* Soft bottom border */
+    position: sticky; /* Makes header stick to the top on scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure header is above other content */
+    box-shadow: none; /* Initially no shadow */
+    transition: box-shadow 0.3s ease, padding 0.3s ease; /* Smooth transition for shadow and padding */
+}
+
+/* JavaScript will add 'scrolled' class when scrolled */
+.main-header.scrolled {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* Add softer shadow when scrolled */
+    padding: 12px 0; /* Slightly reduce padding when scrolled */
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between; /* Space logo and nav */
+    align-items: center; /* Vertically align items */
+}
+
+.logo a {
+    font-family: 'Playfair Display', serif;
+    font-size: 2em; /* Slightly larger logo */
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s ease; /* Smooth color change on hover */
+}
+
+.logo a:hover {
+    color: var(--color-primary-accent); /* Accent color on hover */
+}
+
+/* ------------------------------------ */
+/* 6. Navigation Styling (Desktop & Mobile Toggle) */
+/* ------------------------------------ */
+.main-nav ul {
+    list-style: none; /* Remove bullet points */
+    display: flex; /* Arrange links in a row */
+}
+
+.main-nav ul li {
+    margin-left: 35px; /* More space between links */
+}
+
+.main-nav ul li a {
+    text-decoration: none;
+    color: var(--color-secondary-text);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    letter-spacing: 0.5px; /* Slight letter spacing for elegance */
+}
+
+.main-nav ul li a:hover {
+    color: var(--color-primary-accent); /* Accent color on hover */
+}
+
+/* Mobile menu toggle button */
+.menu-toggle {
+    display: none; /* Hidden by default on desktop */
+    background: none;
+    border: none;
+    font-size: 2.2em; /* Hamburger icon size */
+    cursor: pointer;
+    color: var(--color-primary-dark);
+    padding: 5px 10px;
+    line-height: 1; /* Adjust vertical alignment */
+}
+
+/* ------------------------------------ */
+/* 7. Buttons (Clean & Animated) */
+/* ------------------------------------ */
+.btn {
+    display: inline-block; /* Allows padding, margin, etc. */
+    padding: 14px 30px; /* More padding for larger buttons */
+    border-radius: 3px; /* Slightly less rounded corners */
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease; /* Smooth transition for all properties */
+    cursor: pointer;
+    border: none; /* Remove default button border */
+    letter-spacing: 0.8px;
+    text-transform: uppercase; /* Uppercase text for buttons */
+    font-size: 0.95em;
+}
+
+.btn-primary { /* For main CTA - Book Consultation */
+    background-color: var(--color-primary-accent); /* Muted Gold/Blush */
+    color: #FFFFFF; /* Soft white text */
+}
+.btn-primary:hover {
+    background-color: #a08c6e; /* Slightly darker accent */
+    transform: translateY(-2px); /* Lift slightly */
+    box-shadow: 0 5px 12px rgba(0,0,0,0.15); /* Softer shadow */
+}
+
+.btn-secondary { /* For "Explore Services" or "Read More" */
+    background-color: transparent; /* Transparent background */
+    color: var(--color-primary-accent); /* Accent text */
+    border: 2px solid var(--color-primary-accent); /* Accent border */
+}
+.btn-secondary:hover {
+    background-color: var(--color-primary-accent); /* Fill with accent on hover */
+    color: var(--color-white); /* White text on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+}
+
+.btn-tertiary { /* For service item buttons */
+    background-color: var(--color-lighter-background); /* Slightly darker cream background */
+    color: var(--color-primary-dark);
+    padding: 10px 20px;
+    font-size: 0.85em;
+    text-transform: none; /* Don't uppercase tertiary buttons */
+    letter-spacing: 0.3px;
+}
+.btn-tertiary:hover {
+    background-color: var(--color-border); /* Transition to border color */
+    transform: scale(1.02); /* Grow slightly */
+}
+
+/* ------------------------------------ */
+/* 8. Global Section Spacing */
+/* ------------------------------------ */
+section {
+    padding: 100px 0; /* More generous vertical spacing between sections */
+}
+
+/* ------------------------------------ */
+/* 9. Fade-in Animation (Requires JavaScript for scroll-trigger) */
+/* ------------------------------------ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(25px); /* Start slightly further below */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Set initial state for elements that will animate (hidden) */
+.hero-section .hero-content,
+.hero-section .hero-content h1,
+.hero-section .hero-content p,
+.hero-section .hero-content .btn,
+.services-section h2,
+.service-item,
+.about-us-section .about-content,
+.about-us-section .about-images img,
+.testimonials-section h2,
+.testimonial-item,
+.blog-section h2,
+.blog-post-card,
+.cta-section h2,
+.cta-section p,
+.cta-section .btn,
+.footer-columns {
+    opacity: 0; /* Hide initially */
+}
+
+/* 'animate-in' class is added by JavaScript when element enters viewport */
+.animate-in {
+    animation: fadeIn 1s ease-out forwards; /* 1s duration, ease-out timing */
+}
+
+/* Add delays for a staggered effect (these delays will start after 'animate-in' is added) */
+.hero-section .hero-content h1 { animation-delay: 0.2s; }
+.hero-section .hero-content p { animation-delay: 0.4s; }
+.hero-section .hero-content .btn { animation-delay: 0.6s; }
+
+.service-item:nth-child(1) { animation-delay: 0.2s; }
+.service-item:nth-child(2) { animation-delay: 0.4s; }
+.service-item:nth-child(3) { animation-delay: 0.6s; }
+
+.testimonial-item:nth-child(1) { animation-delay: 0.2s; }
+.testimonial-item:nth-child(2) { animation-delay: 0.4s; }
+.testimonial-item:nth-child(3) { animation-delay: 0.6s; } /* If you add a 3rd testimonial */
+
+.blog-post-card:nth-child(1) { animation-delay: 0.2s; }
+.blog-post-card:nth-child(2) { animation-delay: 0.4s; }
+.blog-post-card:nth-child(3) { animation-delay: 0.6s; }
+/* Add more as needed for additional items */
+
+/* ------------------------------------ */
+/* 10. Hero Section */
+/* ------------------------------------ */
+.hero-section {
+    background-color: var(--color-light-background);
+    padding: 120px 0; /* More padding */
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 550px; /* Minimum height for the hero area */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-section .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.hero-content h1 {
+    font-size: 4.2em; /* Larger, more impactful heading */
+    line-height: 1.1;
+    margin-bottom: 25px;
+    color: var(--color-primary-dark);
+}
+
+.hero-content p {
+    font-size: 1.4em; /* Larger subtext */
+    margin-bottom: 40px;
+    color: var(--color-secondary-text);
+    max-width: 700px; /* Limit paragraph width */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ------------------------------------ */
+/* 11. Services Section */
+/* ------------------------------------ */
+.services-section {
+    background-color: var(--color-light-background); /* Creamy off-white background */
+    text-align: center;
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px; /* More space */
+    margin-top: 60px;
+}
+
+.service-item {
+    background-color: var(--color-light-background);
+    padding: 45px 35px;
+    border-radius: 5px; /* Softer rounded corners */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06); /* Softer shadow */
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-item:hover {
+    transform: translateY(-8px); /* Lift more on hover */
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1); /* More prominent, softer shadow on hover */
+}
+
+.service-item h3 {
+    color: var(--color-primary-accent); /* Accent color for service titles */
+    margin-bottom: 20px;
+}
+.service-item p {
+    margin-bottom: 25px;
+}
+
+/* ------------------------------------ */
+/* 12. About Us Section */
+/* ------------------------------------ */
+.about-us-section {
+    background-color: var(--color-lighter-background); /* Slightly darker cream background */
+}
+.about-us-section .container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 60px; /* More space */
+}
+
+.about-content {
+    flex: 1;
+    min-width: 350px; /* Increase min-width for larger text blocks */
+}
+.about-content p {
+    margin-bottom: 1.2em;
+    font-size: 1.05em;
+}
+
+.about-images {
+    flex: 1;
+    display: flex;
+    gap: 25px; /* More space between images */
+    justify-content: center;
+}
+
+.about-images img {
+    max-width: 48%; /* Slightly larger image share */
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-images img:hover {
+    transform: scale(1.04); /* Slightly zoom in on hover */
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
+/* ------------------------------------ */
+/* 13. Testimonials Section */
+/* ------------------------------------ */
+.testimonials-section {
+    background-color: var(--color-lighter-background); /* Slightly darker cream background */
+    text-align: center;
+}
+
+.testimonial-carousel {
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* More space */
+    flex-wrap: wrap;
+    margin-top: 60px;
+}
+
+.testimonial-item {
+    background-color: var(--color-light-background);
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    max-width: 500px; /* Wider testimonial cards */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
+.testimonial-item p {
+    font-style: italic;
+    margin-bottom: 25px;
+    font-size: 1.15em; /* Larger quotes */
+    line-height: 1.6;
+}
+
+.testimonial-item h4 {
+    color: var(--color-primary-accent);
+    margin-bottom: 0;
+    font-size: 1.1em;
+}
+
+/* ------------------------------------ */
+/* 14. Blog Section */
+/* ------------------------------------ */
+.blog-section {
+    background-color: var(--color-light-background);
+    text-align: center;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px; /* More space */
+    margin-top: 60px;
+}
+
+.blog-post-card {
+    background-color: var(--color-light-background);
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    text-align: left;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-post-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
+.blog-post-card img {
+    width: 100%;
+    height: 220px; /* Slightly taller images */
+    object-fit: cover;
+    transition: transform 0.4s ease-out;
+}
+
+.blog-post-card:hover img {
+    transform: scale(1.08); /* More pronounced zoom on hover */
+}
+
+/* Image Overlay Effect on hover (color adjusted for new scheme) */
+.blog-post-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 220px; /* Match image height */
+    background-color: rgba(184, 159, 129, 0.2); /* Muted gold/blush overlay */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+.blog-post-card:hover::before {
+    opacity: 1;
+}
+
+.blog-post-card h3 {
+    margin: 25px 25px 15px; /* More padding inside card */
+}
+
+.blog-post-card h3 a {
+    text-decoration: none;
+    color: var(--color-primary-dark);
+    transition: color 0.3s ease;
+}
+
+.blog-post-card h3 a:hover {
+    color: var(--color-primary-accent);
+}
+
+.blog-post-card p {
+    margin: 0 25px 25px;
+    font-size: 1em; /* Slightly larger text */
+    color: var(--color-secondary-text);
+}
+
+.blog-post-card .read-more {
+    display: inline-block;
+    margin: 0 25px 25px;
+    color: var(--color-primary-accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.blog-post-card .read-more:hover {
+    text-decoration: underline;
+}
+
+/* ------------------------------------ */
+/* 15. Call to Action Section */
+/* ------------------------------------ */
+.cta-section {
+    background-color: var(--color-primary-accent); /* Strong accent color */
+    color: var(--color-white); /* Soft white text */
+    text-align: center;
+    padding: 100px 0;
+}
+
+.cta-section h2 {
+    color: var(--color-white); /* White heading */
+    margin-bottom: 25px;
+    font-size: 2.8em;
+}
+
+.cta-section p {
+    font-size: 1.3em;
+    margin-bottom: 50px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ------------------------------------ */
+/* 16. Footer */
+/* ------------------------------------ */
+.main-footer {
+    background-color: var(--color-primary-dark); /* Dark text color for footer background */
+    color: var(--color-white); /* Light text */
+    padding: 70px 0 30px;
+    font-size: 0.9em;
+}
+
+.footer-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.footer-col h3 {
+    color: var(--color-white); /* White headings */
+    margin-bottom: 25px;
+    font-size: 1.6em;
+}
+
+.footer-col p, .footer-col ul {
+    margin-bottom: 12px;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li a {
+    color: var(--color-white);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: block;
+    padding: 6px 0;
+}
+
+.footer-col ul li a:hover {
+    color: var(--color-primary-accent);
+}
+
+.footer-col .social-links a {
+    display: inline-block;
+    margin-right: 18px;
+}
+
+.footer-col .social-links img {
+    width: 28px; /* Slightly larger icons */
+    height: 28px;
+    filter: invert(1) brightness(1.2); /* Make them light and slightly brighter */
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.1); /* Softer separator line */
+    padding-top: 25px;
+    margin-top: 25px;
+    color: rgba(255,255,255,0.7); /* Slightly muted text */
+}
+
+/* ------------------------------------ */
+/* 17. Responsive Adjustments (Media Queries) */
+/* ------------------------------------ */
+@media (max-width: 992px) {
+    h1 { font-size: 2.8em; }
+    h2 { font-size: 2.2em; }
+    .hero-content h1 { font-size: 3.5em; }
+    .hero-content p { font-size: 1.2em; }
+
+    .main-nav ul li {
+        margin-left: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2.5em; }
+    h2 { font-size: 2em; }
+    h3 { font-size: 1.8em; }
+
+    section {
+        padding: 80px 0;
+    }
+    .hero-section {
+        padding: 80px 0;
+        min-height: 480px;
+    }
+    .hero-content h1 {
+        font-size: 3em;
+    }
+    .hero-content p {
+        font-size: 1.1em;
+    }
+
+    /* Mobile Navigation Specifics */
+    .main-nav {
+        display: none;
+        width: 100%;
+        margin-top: 20px;
+        text-align: center;
+        background-color: var(--color-light-background);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        padding: 15px 0;
+        position: absolute;
+        top: 70px; /* Adjust based on new header height */
+        left: 0;
+        border-top: 1px solid var(--color-border);
+    }
+    .main-nav.active {
+        display: block;
+    }
+    .main-nav ul {
+        flex-direction: column;
+    }
+    .main-nav ul li {
+        margin: 12px 0;
+    }
+    .main-header .container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .logo {
+        margin-bottom: 0;
+    }
+    .menu-toggle {
+        display: block;
+    }
+
+    .about-us-section .container {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+    .about-images {
+        flex-direction: column;
+        align-items: center;
+    }
+    .about-images img {
+        max-width: 90%;
+    }
+
+    .footer-columns {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .footer-col ul {
+        padding: 0;
+    }
+    .footer-col .social-links {
+        justify-content: center;
+        display: flex;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 2.2em; }
+    h2 { font-size: 1.8em; }
+    h3 { font-size: 1.5em; }
+    .hero-content h1 {
+        font-size: 2.5em;
+    }
+    .hero-section {
+        padding: 50px 0;
+        min-height: 400px;
+    }
+    .btn {
+        padding: 12px 25px;
+        font-size: 0.85em;
+    }
+    .service-item, .blog-post-card, .testimonial-item {
+        padding: 30px 25px;
+    }
+    .blog-post-card img {
+        height: 180px;
+    }
+    .blog-post-card::before {
+        height: 180px;
+    }
+}
+
+.marquee-wrapper {
+  width: 100%;
+  overflow: hidden;
+  background-color: #f0f9ff;
+  border-top: 2px solid #b89f81;
+  border-bottom: 2px solid #b89f81;
+  white-space: nowrap;
+}
+
+.marquee {
+  display: inline-flex;
+  animation: scroll-left 20s linear infinite;
+}
+
+.marquee span {
+  display: inline-block;
+  padding: 12px 2rem;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0c4a6e;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.btn-marquee {
+  display: inline-block;
+  background-color: #b89f81;
+  color: white;
+  padding: 4px 10px;
+  margin-left: 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
