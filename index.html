@@ -34,19 +34,19 @@
     <div class="marquee-wrapper">
       <div class="marquee">
         <span>
-          🎉 Get a <strong>free mentorship session</strong> – available to the <strong>first 50 applicants</strong>! 
-          <a href="https://tidycal.com/valleybridgeinfo/free-15-min-session" target="_blank" class="claim-btn btn-marquee">Claim Now</a>
-        </span>
-        <span>
-          🎉 Get a <strong>free mentorship session</strong> – available to the <strong>first 50 applicants</strong>! 
+          🎉 Get a <strong>free mentorship session</strong> – available to the <strong>first 10 applicants</strong>! 
           <a href="https://tidycal.com/valleybridgeinfo/free-15-min-session" target="_blank" class="claim-btn btn-marquee" onclick="handleClaimClick(event)">Claim Now</a>
         </span>
         <span>
-          🎉 Get a <strong>free mentorship session</strong> – available to the <strong>first 50 applicants</strong>! 
+          🎉 Get a <strong>free mentorship session</strong> – available to the <strong>first 10 applicants</strong>! 
+          <a href="https://tidycal.com/valleybridgeinfo/free-15-min-session" target="_blank" class="claim-btn btn-marquee" onclick="handleClaimClick(event)">Claim Now</a>
+        </span>
+        <span>
+          🎉 Get a <strong>free mentorship session</strong> – available to the <strong>first 10 applicants</strong>! 
           <a href="https://tidycal.com/valleybridgeinfo/free-15-min-session" target="_blank" class="claim-btn btn-marquee" onclick="handleClaimClick(event)">Claim Now</a>
         </span>
          <span>
-          🎉 Get a <strong>free mentorship session</strong> – available to the <strong>first 50 applicants</strong>! 
+          🎉 Get a <strong>free mentorship session</strong> – available to the <strong>first 10 applicants</strong>! 
           <a href="https://tidycal.com/valleybridgeinfo/free-15-min-session" target="_blank" class="claim-btn btn-marquee" onclick="handleClaimClick(event)">Claim Now</a>
         </span>
       </div>
@@ -188,7 +188,7 @@
     </section>
      -->
 
-
+<!--
     <section id="contact" class="cta-section">
         <div class="container">
             <h2>Ready to Begin Your Journey to the US?</h2>
@@ -196,7 +196,7 @@
             <a href="https://tidycal.com/valleybridgeinfo/free-15-min-session" class="btn btn-primary">Book Your Free Consultation Today</a>
         </div>
     </section>
-
+-->
     <footer class="main-footer">
         <div class="container">
             <div class="footer-columns">
@@ -207,13 +207,8 @@
                 <div class="footer-col nav-links">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="#services">Services</a></li>
                         <li><a href="#about">About Us</a></li>
-                        <li><a href="#blog">Blog</a></li>
-                        <li><a href="#testimonials">Success Stories</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#services">Services</a></li>  
                     </ul>
                 </div>
                 <div class="footer-col contact-info">
@@ -239,46 +234,58 @@
     </footer>
 
     <script src="script.js"></script>
-    <script>
+ <script>
+  const GAS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbx0ra6_pPmtg0ihLmC8SIVD0rfEYp1UAnpUaTYVOdYnPmL-gpthsc6DPw4VL8T8QYBBRQ/exec';
 
-        function handleClaimClick(event) {
-        event.preventDefault(); // prevent going to Calendly for demo/testing
+  // Current booking count (fetched from Google Apps Script)
+  let bookingCount = 0;
 
-        // Your function logic here
-        console.log("Claim button clicked!");
-        
-        // For example, call your update function
-        updateClaimButton();
-
-        // If you want to actually open the Calendly link in a new tab AFTER your logic:
-        // window.open('https://calendly.com/valleybridgeinfo', '_blank');
-        }
-      // Set this to the actual booking count you track
-      let bookingCount = 0; // update this manually or via backend integration
-
-      function updateClaimButton() {
-        const buttons = document.querySelectorAll('.claim-btn');
-        console.log(bookingCount)
-        bookingCount += 1
-        if (bookingCount > 5) {
-          buttons.forEach(btn => {
-            if (btn) {  // safety check, though not really needed here
-                 btn.textContent = "Sorry, all free sessions claimed.";
-                 btn.classList.remove('.claim-btn');
-                 btn.classList.add('btn-secondary');
-                 btn.style.pointerEvents = 'none';  // disable click
-                btn.style.opacity = '0.6';         // visually disabled
-                }
-            });
-        }
-      }
-
-      // Call this function on page load or after bookingCount update
+  // Fetch booking count from GAS backend
+  async function fetchBookingCount() {
+    try {
+      const response = await fetch(GAS_WEBAPP_URL);
+      if (!response.ok) throw new Error('Network response was not ok');
+      const data = await response.json();
+      console.log(data)
+      bookingCount = data["bookingCount"] || 0;
       updateClaimButton();
+    } catch (error) {
+      console.error('Error fetching booking count:', error);
+    }
+  }
 
-      function openCalendlyPopup() {
-        Calendly.initPopupWidget({ url: 'https://calendly.com/valleybridgeinfo' });
-      }
+  // Update all claim buttons based on booking count
+  function updateClaimButton() {
+    const buttons = document.querySelectorAll('.claim-btn');
+    if (bookingCount >= 2) {
+      buttons.forEach(btn => {
+        btn.textContent = "Sorry, all free sessions claimed.";
+        btn.classList.remove('claim-btn');
+        btn.classList.add('btn-secondary');
+        btn.style.pointerEvents = 'none';  // disable click
+        btn.style.opacity = '0.6';          // visually disabled
+      });
+    }
+  }
+
+  // Called when claim button clicked
+  function handleClaimClick(event) {
+    event.preventDefault();
+
+    // If already full, do nothing
+    if (bookingCount >= 2) return;
+
+    // Open the booking page in new tab
+    window.open(event.currentTarget.href, '_blank');
+
+    // Optionally: increment local booking count
+    updateClaimButton();
+    fetchBookingCount();
+    // Optionally, you can call fetchBookingCount() again to sync with backend later
+  }
+
+  // On page load, fetch current booking count
+  window.addEventListener('DOMContentLoaded', fetchBookingCount);
 </script>
 
 </body>
