@@ -74,8 +74,8 @@
                 <a href="#contact" class="btn btn-secondary">Connect With Us</a>
             </div>
             <div class="about-images">
-                <img src="your-photo-1.jpg" alt="Anuja - Software Engineer at Google">
-                <img src="your-photo-2.jpg" alt="Pranshu - Software Engineer at PayPal">
+                <img src="images/anuja.png" alt="Anuja - Software Engineer at Google">
+                <img src="images/pranshu.png" alt="Pranshu - Software Engineer at PayPal">
             </div>
         </div>
     </section>
@@ -257,7 +257,7 @@
   // Update all claim buttons based on booking count
   function updateClaimButton() {
     const buttons = document.querySelectorAll('.claim-btn');
-    if (bookingCount >= 2) {
+    if (bookingCount >= 3) {
       buttons.forEach(btn => {
         btn.textContent = "Sorry, all free sessions claimed.";
         btn.classList.remove('claim-btn');
@@ -273,7 +273,7 @@
     event.preventDefault();
 
     // If already full, do nothing
-    if (bookingCount >= 2) return;
+    if (bookingCount >= 3) return;
 
     // Open the booking page in new tab
     window.open(event.currentTarget.href, '_blank');
