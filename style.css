@@ -367,7 +367,7 @@ section {
 }
 
 .about-images {
-    flex: 1;
+    flex: 2;
     display: flex;
     gap: 25px; /* More space between images */
     justify-content: center;
